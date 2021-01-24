@@ -2,7 +2,7 @@ package mappingclass;
 
 import java.util.List;
 
-public class MonthlyStat {
+public final class MonthlyStat {
     private int month;
     private List<Integer> distributorsIds;
 
@@ -20,13 +20,5 @@ public class MonthlyStat {
 
     public void setDistributorsIds(final List<Integer> distributorsIds) {
         this.distributorsIds = distributorsIds;
-    }
-
-    @Override
-    public String toString() {
-        return "MonthlyStat{" +
-                "month=" + month +
-                ", distributorsIds=" + distributorsIds +
-                '}';
     }
 }

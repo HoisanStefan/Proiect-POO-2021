@@ -9,23 +9,16 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class QuantityStrategy implements Strategy {
-    private List<Producer> producers;
-
-    public QuantityStrategy() {}
-
-    public QuantityStrategy(final List<Producer> producers) {
-        this.producers = producers;
-    }
-
+public final class QuantityStrategy implements Strategy {
+    public QuantityStrategy() { }
 
     @Override
-    public List<ProducerQuantity> doStrategy(final Distributor distributor, final List<Producer> producers) {
+    public List<ProducerQuantity> doStrategy(final Distributor distributor,
+                                             final List<Producer> producers) {
         int dQuantity = distributor.getNeededKW();
 
         SortedSet<Producer> sortedQuantity = new TreeSet<>((o1, o2) -> {
-            double cmp;// = Double.compare(o1.getPriceKW(), o2.getPriceKW());
-
+            double cmp;
                 cmp = Integer.compare(o2.getEnergyPerDistributor(), o1.getEnergyPerDistributor());
                 if (cmp == 0) {
                     cmp = Double.compare(o1.getPriceKW(), o2.getPriceKW());

@@ -8,21 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
-public class PriceStrategy implements Strategy {
-    private List<Producer> producers;
+public final class PriceStrategy implements Strategy {
 
     public PriceStrategy() {
     }
 
-    public PriceStrategy(final List<Producer> producers) {
-        this.producers = producers;
-    }
-
-
     @Override
-    public List<ProducerQuantity> doStrategy(final Distributor distributor, final List<Producer> producers) {
+    public List<ProducerQuantity> doStrategy(final Distributor distributor,
+                                             final List<Producer> producers) {
         int dQuantity = distributor.getNeededKW();
 
         SortedSet<Producer> sortedPrice = new TreeSet<>((o1, o2) -> {

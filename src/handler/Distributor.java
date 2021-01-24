@@ -8,7 +8,6 @@ import strategies.EnergyChoiceStrategyType;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Distributor implements Billing {
     private int id;
@@ -106,7 +105,8 @@ public final class Distributor implements Billing {
             for (var producer : pq) {
                 cost += producer.getQuantity() * producer.getProducer().getPriceKW();
             }
-            newDistributor.setProductionCost((int)Math.round(Math.floor(cost / 10)));
+            final int divide = 10;
+            newDistributor.setProductionCost((int) Math.round(Math.floor(cost / divide)));
         }
 
         for (Distributor newDistributor : newDistributors) {
@@ -127,31 +127,56 @@ public final class Distributor implements Billing {
         }
     }
 
+    /**
+     * In the initial round, every distributor has to find one or more
+     * producers. Using StrategyFactory, we apply the distributor's strategy
+     * to obtain a list of producers for each distributor. We update then
+     * both distributors and producers state.
+     * @param distributors current distributors state
+     * @param producers current producers state
+     */
     public static void getProducersForDistributors(final List<Distributor> distributors,
                                             final List<Producer> producers) {
         StrategyFactory sf = new StrategyFactory();
 
-        for (int i = 0; i < distributors.size(); ++i) {
-            Distributor d = distributors.get(i);
-            List<ProducerQuantity> producersAdded;
-            Strategy strategy = sf.createStrategy(d.getStrategyType(), producers);
+        for (Distributor d : distributors) {
+            Strategy strategy = sf.createStrategy(d.getStrategyType());
             if (!d.isBankrupt()) {
-                producersAdded = strategy.doStrategy(d, producers);
-                d.setProducersAndQuantities(producersAdded);
-                for (ProducerQuantity pq : producersAdded) {
-                    Producer p = pq.getProducer();
-                    for (Producer original : producers) {
-                        if (original.getId() == p.getId()) {
-                            List<Distributor> oldList = original.getDistributors();
-                            oldList.add(d);
-                            original.setDistributors(oldList);
-                        }
-                    }
+                updateDistributorAndProducers(producers, d, strategy);
+            }
+        }
+    }
+
+    /**
+     * Updating both distributor and his producers after applying strategy
+     * @param producers current producers state
+     * @param d distributor to update
+     * @param strategy distributor's strategy instance
+     */
+    private static void updateDistributorAndProducers(final List<Producer> producers,
+                                                      final Distributor d,
+                                                      final Strategy strategy) {
+        List<ProducerQuantity> producersAdded;
+        producersAdded = strategy.doStrategy(d, producers);
+        d.setProducersAndQuantities(producersAdded);
+        for (ProducerQuantity pq : producersAdded) {
+            Producer p = pq.getProducer();
+            for (Producer original : producers) {
+                if (original.getId() == p.getId()) {
+                    List<Distributor> oldList = original.getDistributors();
+                    oldList.add(d);
+                    original.setDistributors(oldList);
                 }
             }
         }
     }
 
+    /**
+     * Given a distributor, we delete its appearances from producers'
+     * lists
+     * @param d distributor to exclude from producers
+     * @param producers current producers state
+     */
     public static void deleteThisDistributorFromProducers(final Distributor d,
                                                    final List<Producer> producers) {
         for (Producer p : producers) {
@@ -161,6 +186,12 @@ public final class Distributor implements Billing {
         }
     }
 
+    /**
+     * Re-applying strategy for distributors whose producers updated
+     * @param distributors current distributors state
+     * @param producers current producers state
+     * @param changedProducers list of producers Ids that changed
+     */
     public static void updateDistributors(final List<Distributor> distributors,
                                           final List<Producer> producers,
                                           final List<Integer> changedProducers) {
@@ -182,20 +213,8 @@ public final class Distributor implements Billing {
                 }
                 if (found) {
                     deleteThisDistributorFromProducers(d, producers);
-                    Strategy strategy = sf.createStrategy(d.getStrategyType(), producers);
-                    List<ProducerQuantity> producersAdded;
-                    producersAdded = strategy.doStrategy(d, producers);
-                    d.setProducersAndQuantities(producersAdded);
-                    for (ProducerQuantity pq : producersAdded) {
-                        Producer p = pq.getProducer();
-                        for (Producer original : producers) {
-                            if (original.getId() == p.getId()) {
-                                List<Distributor> oldList = original.getDistributors();
-                                oldList.add(d);
-                                original.setDistributors(oldList);
-                            }
-                        }
-                    }
+                    Strategy strategy = sf.createStrategy(d.getStrategyType());
+                    updateDistributorAndProducers(producers, d, strategy);
                 }
             }
         }
@@ -241,20 +260,12 @@ public final class Distributor implements Billing {
         return neededKW;
     }
 
-    public void setNeededKW(final int neededKW) {
-        this.neededKW = neededKW;
-    }
-
     public void setProductionCost(final int productionCost) {
         this.productionCost = productionCost;
     }
 
     public EnergyChoiceStrategyType getStrategyType() {
         return strategyType;
-    }
-
-    public void setStrategyType(final EnergyChoiceStrategyType strategyType) {
-        this.strategyType = strategyType;
     }
 
     public List<ProducerQuantity> getProducersAndQuantities() {

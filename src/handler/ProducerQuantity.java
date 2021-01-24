@@ -1,6 +1,6 @@
 package handler;
 
-public class ProducerQuantity {
+public final class ProducerQuantity {
     private Producer producer;
     private int quantity;
 

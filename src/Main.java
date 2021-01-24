@@ -23,20 +23,10 @@ public final class Main {
         File in = new File(args[0]);
         FileWriter out = new FileWriter(args[1]);
 
-
-        String file = args[0];
-        String s1 = file.substring(0, 39);
-        String s2 = file.substring(60);
-        file = s1 + s2;
-        FileWriter out2 = new FileWriter(file);
-        //System.out.println(file);
-
         MappingClass mc = objectMapper.readValue(in, MappingClass.class);
         Handler h = new Handler(mc);
         MappingClassOutput mco = h.getResult();
 
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(out, mco);
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(out2, mco);
-
     }
 }

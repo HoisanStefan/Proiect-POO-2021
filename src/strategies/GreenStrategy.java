@@ -4,33 +4,28 @@ import handler.Distributor;
 import handler.Producer;
 import handler.ProducerQuantity;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.ArrayList;
 
-public class GreenStrategy implements Strategy {
-    private List<Producer> producers;
-
+public final class GreenStrategy implements Strategy {
     public GreenStrategy() {
     }
 
-    public GreenStrategy(final List<Producer> producers) {
-        this.producers = producers;
-    }
-
     @Override
-    public List<ProducerQuantity> doStrategy(final Distributor distributor, final List<Producer> producers) {
+    public List<ProducerQuantity> doStrategy(final Distributor distributor,
+                                             final List<Producer> producers) {
         int dQuantity = distributor.getNeededKW();
-//        List<Producer> filteredGreen = producers
-//                .stream()
-//                .filter(p -> p.getEnergyType().isRenewable())
-//                .collect(Collectors.toList());
         SortedSet<Producer> sortedGreen = new TreeSet<>((o1, o2) -> {
-            double cmp = Boolean.compare(o2.getEnergyType().isRenewable(), o1.getEnergyType().isRenewable());
+            double cmp = Boolean.compare(
+                    o2.getEnergyType().isRenewable(), o1.getEnergyType().isRenewable());
 
             if (cmp == 0) {
                 cmp = Double.compare(o1.getPriceKW(), o2.getPriceKW());
                 if (cmp == 0) {
-                    cmp = Integer.compare(o2.getEnergyPerDistributor(), o1.getEnergyPerDistributor());
+                    cmp = Integer.compare(
+                            o2.getEnergyPerDistributor(), o1.getEnergyPerDistributor());
                     if (cmp == 0) {
                         cmp = Integer.compare(o1.getId(), o2.getId());
                     }

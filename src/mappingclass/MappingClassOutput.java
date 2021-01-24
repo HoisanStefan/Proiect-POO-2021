@@ -64,8 +64,11 @@ public final class MappingClassOutput {
         return energyProducers;
     }
 
+    /**
+     * Extracting the necessary data for output
+     * @param energyProducers current state of producers
+     */
     public void setEnergyProducers(final List<handler.Producer> energyProducers) {
-        // TODO
         List<ProducerOutput> p = new ArrayList<>();
         for (handler.Producer producer : energyProducers) {
             ProducerOutput proOut = new ProducerOutput();

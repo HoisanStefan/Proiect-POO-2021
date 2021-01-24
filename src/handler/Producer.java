@@ -6,7 +6,7 @@ import mappingclass.MonthlyStat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Producer {
+public final class Producer {
     private int id;
     private int maxDistributors;
     private int energyPerDistributor;
@@ -14,7 +14,6 @@ public class Producer {
     private EnergyType energyType;
     private List<Distributor> distributors;
     private List<MonthlyStat> monthlyStats;
-    private static List<Producer> newProducers;
 
     public Producer() { }
 
@@ -82,18 +81,5 @@ public class Producer {
 
     public void setMonthlyStats(final List<MonthlyStat> monthlyStats) {
         this.monthlyStats = monthlyStats;
-    }
-
-    @Override
-    public String toString() {
-        return "Producer{" +
-                "id=" + id +
-                ", maxDistributors=" + maxDistributors +
-                ", energyPerDistributor=" + energyPerDistributor +
-                ", priceKW=" + priceKW +
-                ", energyType=" + energyType +
-                ", distributors=" + distributors +
-                ", monthlyStats=" + monthlyStats +
-                '}';
     }
 }

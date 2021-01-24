@@ -1,6 +1,11 @@
 package handler;
 
-import mappingclass.*;
+import mappingclass.InitialData;
+import mappingclass.MappingClass;
+import mappingclass.UpdateEntry;
+import mappingclass.MappingClassOutput;
+import mappingclass.DistributorChange;
+import mappingclass.ProducerChange;
 import factory.Factory;
 
 import java.util.ArrayList;
@@ -62,7 +67,6 @@ public final class Handler implements Observer {
 
         assert consumer != null;
         assert distributor != null;
-        //assert producers != null;
 
         Distributor.getProducersForDistributors(this.distributors, this.producers);
         applyMethods(consumer, distributor);
@@ -72,7 +76,6 @@ public final class Handler implements Observer {
             We update the consumers and distributors with the
             monthly update
              */
-
             if (this.monthlyUpdates.get(i) != null) {
                 if (this.monthlyUpdates.get(i).getNewConsumers() != null) {
                     for (int j = 0; j < this.monthlyUpdates.get(i).getNewConsumers().size(); ++j) {
@@ -98,7 +101,6 @@ public final class Handler implements Observer {
             applyMethods(consumer, distributor);
 
             if (this.monthlyUpdates.get(i) != null) {
-                /* TODO: Update distributors and producers */
                 if (this.monthlyUpdates.get(i).getProducerChanges() != null) {
                     List<Integer> emptyList = new ArrayList<>();
                     observable.setProducersChangedLastMonth(emptyList);
@@ -107,12 +109,8 @@ public final class Handler implements Observer {
                 }
             }
 
-
-//            if (i == 1) {
-//                System.out.println(this.producers);
-//            }
-            Distributor.updateDistributors
-                    (this.distributors, this.producers, observable.getProducersChangedLastMonth());
+            Distributor.updateDistributors(
+                    this.distributors, this.producers, observable.getProducersChangedLastMonth());
             observable.populateMonth(i + 1, this.producers);
         }
 
