@@ -3,14 +3,15 @@ Starting audit...
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\factory\StrategyFactory.java:9:5: Class 'StrategyFactory' looks like designed for extension (can be subclassed), but the method 'createStrategy' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'StrategyFactory' final or making the method 'createStrategy' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\factory\StrategyFactory.java:9:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\factory\StrategyFactory.java:10:9: switch without "default" clause. [MissingSwitchDefault]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:107:50: 'typecast' is not followed by whitespace. [WhitespaceAfter]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:107:80: '10' is a magic number. [MagicNumber]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:128:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:153:5: Missing a Javadoc comment. [MissingJavadocMethod]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:162:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:11:8: Unused import - java.util.stream.Collectors. [UnusedImports]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:109:50: 'typecast' is not followed by whitespace. [WhitespaceAfter]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:109:80: '10' is a magic number. [MagicNumber]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:130:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:155:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Distributor.java:164:5: Missing a Javadoc comment. [MissingJavadocMethod]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Handler.java:3:20: Using the '.*' form of import should be avoided - mappingclass.*. [AvoidStarImport]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Handler.java:100:19: Comment matches to-do format 'TODO:'. [TodoComment]
-[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Handler.java:114:21: '(' should be on the previous line. [MethodParamPad]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Handler.java:101:19: Comment matches to-do format 'TODO:'. [TodoComment]
+[ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Handler.java:115:21: '(' should be on the previous line. [MethodParamPad]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Producer.java:31:5: Class 'Producer' looks like designed for extension (can be subclassed), but the method 'getId' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Producer' final or making the method 'getId' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Producer.java:35:5: Class 'Producer' looks like designed for extension (can be subclassed), but the method 'setId' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Producer' final or making the method 'setId' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\handler\Producer.java:39:5: Class 'Producer' looks like designed for extension (can be subclassed), but the method 'getMaxDistributors' does not have javadoc that explains how to do that safely. If class is not designed for extension consider making the class 'Producer' final or making the method 'getMaxDistributors' static/final/abstract/empty, or adding allowed annotation for the method. [DesignForExtension]
@@ -93,4 +94,4 @@ Starting audit...
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\strategies\Strategy.java:10:39: Redundant 'final' modifier. [RedundantModifier]
 [ERROR] D:\An 3\POO\Proiect POO\proiect-etapa2\.\src\strategies\Strategy.java:10:70: Redundant 'final' modifier. [RedundantModifier]
 Audit done.
-Checkstyle ends with 93 errors.
+Checkstyle ends with 94 errors.

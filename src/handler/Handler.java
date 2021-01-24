@@ -72,6 +72,7 @@ public final class Handler implements Observer {
             We update the consumers and distributors with the
             monthly update
              */
+
             if (this.monthlyUpdates.get(i) != null) {
                 if (this.monthlyUpdates.get(i).getNewConsumers() != null) {
                     for (int j = 0; j < this.monthlyUpdates.get(i).getNewConsumers().size(); ++j) {

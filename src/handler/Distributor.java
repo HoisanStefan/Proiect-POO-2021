@@ -6,7 +6,9 @@ import strategies.Strategy;
 import strategies.EnergyChoiceStrategyType;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Distributor implements Billing {
     private int id;
@@ -163,6 +165,8 @@ public final class Distributor implements Billing {
                                           final List<Producer> producers,
                                           final List<Integer> changedProducers) {
         StrategyFactory sf = new StrategyFactory();
+
+        distributors.sort(Comparator.comparingInt(Distributor::getId));
 
         for (Distributor d : distributors) {
             List<ProducerQuantity> subscribed = d.getProducersAndQuantities();

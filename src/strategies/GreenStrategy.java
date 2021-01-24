@@ -31,6 +31,9 @@ public class GreenStrategy implements Strategy {
                 cmp = Double.compare(o1.getPriceKW(), o2.getPriceKW());
                 if (cmp == 0) {
                     cmp = Integer.compare(o2.getEnergyPerDistributor(), o1.getEnergyPerDistributor());
+                    if (cmp == 0) {
+                        cmp = Integer.compare(o1.getId(), o2.getId());
+                    }
                 }
             }
 
